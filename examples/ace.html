@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <style>
+      html {
+        height: 100%;
+      }
+      body {
+        margin: 0;
+        height: 100%;
+        position: relative;
+        background-color: #1e1e1e;
+      }
+      #firepad {
+        width: 100%;
+        height: 80vh;
+      }
+      .firepad-remote-cursor-message {
+        border-width: 1px;
+        border-style: solid;
+        opacity: 0.8;
+        padding: 1px;
+      }
+      [class*="remote-client-selection"] {
+        opacity: 0.5;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="firepad"></div>
+    <script src="./firepad.js"></script>
+  </body>
+</html>

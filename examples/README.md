@@ -1,7 +1,7 @@
 ## Examples
-
-You can run the examples by simply opening any of the following files in your browser:
-
+You can run the examples by simply following the steps below and opening any of the following files in your browser:
+- Change entry point in webpack.dev.config to the editor example you want to run
+- Run `yarn start`
 - [`code.html`](./code.html) - Code-editing using CodeMirror.
 - [`ace.html`](./ace.html) - Code-editing using ACE.
 - [`richtext-simple.html`](./richtext-simple.html) - Simple rich-text editing.

@@ -1,33 +1,21 @@
 {
-  "name": "@hackerrank/firepad",
+  "name": "@joshtechnologygroup/firepad",
   "description": "Collaborative text editing powered by Firebase",
-  "version": "0.8.4-beta",
-  "author": {
-    "email": "bprogyan@gmail.com",
-    "name": "Progyan Bhattacharya",
-    "url": "https://github.com/Progyan1997"
-  },
+  "version": "0.0.1",
+  "author": "Firebase (https://firebase.google.com/)",
   "contributors": [
-    "Michael Lehenbauer <michael@firebase.com>",
-    "Brijesh Bittu <brijesh@hackerrank.com>",
-    "Nishchay Kaushik <nishchay@hackerrank.com>",
-    "Mohanasundar <mohana.sundar@hackerrank.com>"
+    "Michael Lehenbauer <michael@firebase.com>"
   ],
   "maintainers": [
-    {
-      "email": "developers@hackerrank.com",
-      "name": "HackerRank",
-      "url": "https://hackerrank.com"
-    },
     "Firebase (https://firebase.google.com/)"
   ],
   "homepage": "http://www.firepad.io/",
   "repository": {
     "type": "git",
-    "url": "https://github.com/interviewstreet/firepad-x.git"
+    "url": "git@github.com:joshtechnologygroup/firepad-x.git"
   },
   "bugs": {
-    "url": "https://github.com/interviewstreet/firepad-x/issues"
+    "url": "https://github.com/joshtechnologygroup/firepad-x/issues"
   },
   "license": "MIT",
   "keywords": [
@@ -55,7 +43,8 @@
   },
   "peerDependencies": {
     "firebase": "8.10.1",
-    "monaco-editor": "0.18.1"
+    "monaco-editor": "0.18.1",
+    "ace-builds": "^1.4.2"
   },
   "dependencies": {
     "uuid": "8.3.2"
@@ -68,6 +57,7 @@
     "@babel/preset-typescript": "7.13.0",
     "@types/jest": "26.0.23",
     "@types/uuid": "8.3.0",
+    "ace-builds": "^1.4.2",
     "babel-loader": "8.2.2",
     "check-yarn-lock": "0.2.1",
     "child-process-promise": "2.2.1",

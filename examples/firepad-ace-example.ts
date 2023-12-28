@@ -1,7 +1,8 @@
-import * as monaco from "monaco-editor";
 import firebase from "firebase/app";
 import "firebase/database";
 import "firebase/firestore";
+
+import { Ace, edit } from "ace-builds";
 
 import * as Firepad from "../src";
 
@@ -15,59 +16,30 @@ const getExampleRef = function (): firebase.database.Reference {
     ref = ref.push(); // generate unique location.
     window.location.replace(window.location + "#" + ref.key); // add it as a hash to the URL.
   }
-
-  console.log("Firebase data: ", ref.toString());
-  return ref;
-};
-
-const getExampleFirestoreRef = function (): firebase.firestore.DocumentReference {
-  let ref: firebase.firestore.DocumentReference;
-  const hash = window.location.hash.replace(/#/g, "");
-  if (hash) {
-    ref = firebase.firestore().collection("slugs").doc(hash);
-  } else {
-    let tempKey = "" + Date.now();
-    ref = firebase.firestore().collection("slugs").doc(tempKey);
-    window.location.replace(window.location + "#" + tempKey); // add it as a hash to the URL.
-  }
-  console.log("Firestore data: ", ref.toString());
   return ref;
 };
 
 const init = function (): void {
   // Initialize Firebase.
-  firebase.initializeApp(process.env.FIREBASE_CONFIG);
+  firebase.initializeApp(process.env.FIREBASE_CONFIG!);
 
   // Get Firebase Database reference.
   const firebaseRef = getExampleRef();
-  // Get Firestore reference.
-  const firestoreRef = getExampleFirestoreRef();
 
-  // Create Monaco and firepad.
-  const editor = monaco.editor.create(document.getElementById("firepad")!, {
-    language: "typescript",
-    fontSize: 18,
-    theme: "vs-dark",
-    // @ts-ignore
-    trimAutoWhitespace: false,
+  const editor = edit(document.getElementById("firepad")!, {
+    maxLines: 50,
+    minLines: 10,
+    value: "",
+    mode: "ace/mode/javascript",
   });
 
-  const firepad = Firepad.fromMonacoWithFirestore(firestoreRef, editor, {
-    userName: `Anonymous ${Math.floor(Math.random() * 100)}`,
-    defaultText: `// typescript Editing with Firepad!
-function go() {
-  var message = "Hello, world.";
-  console.log(message);
-}
-`,
-  });
+  const firepad = Firepad.fromAceWithFirebase(firebaseRef, editor, {
+      userName: `Anonymous ${Math.floor(Math.random() * 100)}`,
+    }
+  );
 
   window["firepad"] = firepad;
   window["editor"] = editor;
-
-  window.addEventListener("resize", function () {
-    editor.layout();
-  });
 };
 
 // Initialize the editor in non-blocking way
@@ -86,7 +58,7 @@ if (module.hot) {
     const Firepad = require("../src/index.ts");
 
     // Get Editor and Firepad instance
-    const editor: monaco.editor.IStandaloneCodeEditor = window["editor"];
+    const editor: Ace.Editor = window["editor"];
     const firepad: Firepad.Firepad = window["firepad"];
 
     // Get Constructor Options
@@ -98,7 +70,7 @@ if (module.hot) {
     firepad.dispose();
 
     // Create new connection
-    window["firepad"] = Firepad.fromMonaco(firepadRef, editor, {
+    window["firepad"] = Firepad.fromAceWithFirebase(firepadRef, editor, {
       userId,
       userName,
     });
