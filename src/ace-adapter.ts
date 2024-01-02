@@ -59,7 +59,10 @@ export class ACEAdapter implements IEditorAdapter {
         this.aceSession.selection.getRange().start,
         this.aceDoc.getAllLines()
       );
-      let end = this.indexFromPos(this.aceSession.selection.getRange().end, this.aceDoc.getAllLines());
+      let end = this.indexFromPos(
+        this.aceSession.selection.getRange().end,
+        this.aceDoc.getAllLines()
+      );
       if (start > end) {
         [start, end] = [end, start];
       }
@@ -145,6 +148,46 @@ export class ACEAdapter implements IEditorAdapter {
 
   registerCallbacks(callbacks: EditorEventCallbackType): void {
     this.callbacks = callbacks;
+  }
+
+  applyOperation(operation: ITextOperation): void {
+    this.ignoreChanges = !operation.isNoop();
+    this.applyOperationToACE(operation);
+    this.ignoreChanges = false;
+  }
+
+  registerUndo(undoFn: UndoRedoCallbackType): void {
+    this.ace.undo = undoFn;
+  }
+
+  registerRedo(redoFn: UndoRedoCallbackType): void {
+    this.ace.redo = redoFn;
+  }
+
+  invertOperation(operation: ITextOperation): ITextOperation {
+    return operation.invert(this.getValue());
+  }
+
+  getText(): string {
+    return "";
+  }
+
+  setText(text: string): void {}
+
+  setInitiated(init: boolean): void {}
+
+  on(
+    event: EditorAdapterEvent,
+    listener: EventListenerType<IEditorAdapterEvent>
+  ): void {}
+
+  off(
+    event: EditorAdapterEvent,
+    listener: EventListenerType<IEditorAdapterEvent>
+  ): void {}
+
+  dispose(): void {
+    this.ace.destroy();
   }
 
   private grabDocumentState(): void {
@@ -272,42 +315,4 @@ export class ACEAdapter implements IEditorAdapter {
       this.callbacks[event].apply(this, args);
     }
   }
-
-  applyOperation(operation: ITextOperation): void {
-    this.ignoreChanges = !operation.isNoop();
-    this.applyOperationToACE(operation);
-    this.ignoreChanges = false;
-  }
-
-  registerUndo(undoFn: UndoRedoCallbackType): void {
-    this.ace.undo = undoFn;
-  }
-
-  registerRedo(redoFn: UndoRedoCallbackType): void {
-    this.ace.redo = redoFn;
-  }
-
-  invertOperation(operation: ITextOperation): ITextOperation {
-    return operation.invert(this.getValue());
-  }
-
-  getText(): string {
-    return "";
-  }
-
-  setText(text: string): void {}
-
-  setInitiated(init: boolean): void {}
-
-  dispose(): void {}
-
-  on(
-    event: EditorAdapterEvent,
-    listener: EventListenerType<IEditorAdapterEvent>
-  ): void {}
-
-  off(
-    event: EditorAdapterEvent,
-    listener: EventListenerType<IEditorAdapterEvent>
-  ): void {}
 }
