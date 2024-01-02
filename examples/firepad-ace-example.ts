@@ -1,27 +1,27 @@
-import firebase from "firebase/app";
-import "firebase/database";
-import "firebase/firestore";
+import { FirebaseOptions, initializeApp } from "firebase/app";
+import { DatabaseReference, child, getDatabase, push, ref } from "firebase/database";
 
 import { Ace, edit } from "ace-builds";
 
 import * as Firepad from "../src";
 
-const getExampleRef = function (): firebase.database.Reference {
-  let ref = firebase.database().ref();
+const getExampleRef = function (): DatabaseReference {
+  const database = getDatabase();
+  let firebaseRef = ref(database);
 
   const hash = window.location.hash.replace(/#/g, "");
   if (hash) {
-    ref = ref.child(hash);
+    firebaseRef = child(firebaseRef, hash);
   } else {
-    ref = ref.push(); // generate unique location.
-    window.location.replace(window.location + "#" + ref.key); // add it as a hash to the URL.
+    firebaseRef = push(firebaseRef); // generate unique location.
+    window.location.replace(window.location + "#" + firebaseRef.key); // add it as a hash to the URL.
   }
-  return ref;
+  return firebaseRef;
 };
 
 const init = function (): void {
   // Initialize Firebase.
-  firebase.initializeApp(process.env.FIREBASE_CONFIG!);
+  initializeApp(process.env.FIREBASE_CONFIG! as FirebaseOptions);
 
   // Get Firebase Database reference.
   const firebaseRef = getExampleRef();
@@ -62,7 +62,7 @@ if (module.hot) {
     const firepad: Firepad.Firepad = window["firepad"];
 
     // Get Constructor Options
-    const firepadRef: firebase.database.Reference = getExampleRef();
+    const firepadRef = getExampleRef();
     const userId: string | number = firepad.getConfiguration("userId");
     const userName: string = firepad.getConfiguration("userName");
 

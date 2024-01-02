@@ -20,7 +20,7 @@ export class ACEAdapter implements IEditorAdapter {
   private aceDoc: Ace.Document;
   private lastDocLines: string[];
   private lastCursorRange: Ace.Range;
-  private otherCursors;
+  private otherCursors: object;
   private addedStyleRules: Record<string, boolean>;
   private addedStyleSheet: CSSStyleSheet | null;
   private callbacks: EditorEventCallbackType;
@@ -57,11 +57,9 @@ export class ACEAdapter implements IEditorAdapter {
     try {
       let start = this.indexFromPos(
         this.aceSession.selection.getRange().start,
-        this.aceDoc["$lines"]
+        this.aceDoc.getAllLines()
       );
-      let end = this.indexFromPos(this.aceSession.selection.getRange().end, [
-        "$lines",
-      ]);
+      let end = this.indexFromPos(this.aceSession.selection.getRange().end, this.aceDoc.getAllLines());
       if (start > end) {
         [start, end] = [end, start];
       }
@@ -180,16 +178,13 @@ export class ACEAdapter implements IEditorAdapter {
 
   private operationFromACEChange(change): TextOperation[] {
     let text: string;
-    let action: string;
     let start: number;
     if (change.data) {
       const delta = change.data;
       if (delta.action === "insertLines" || delta.action === "removeLines") {
         text = delta.lines.join("\n") + "\n";
-        action = delta.action.replace("Lines", "");
       } else {
         text = delta.text.replace(this.aceDoc.getNewLineCharacter(), "\n");
-        action = delta.action.replace("Text", "");
       }
       start = this.indexFromPos(delta.range.start);
     } else {
@@ -234,7 +229,7 @@ export class ACEAdapter implements IEditorAdapter {
   }
 
   private posFromIndex(index: number): Ace.Position {
-    for (const [row, line] of this.aceDoc["$lines"].entries()) {
+    for (const [row, line] of this.aceDoc.getAllLines().entries()) {
       if (index <= line.length) {
         return { row: row, column: index };
       }

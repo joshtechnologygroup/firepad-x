@@ -1,7 +1,10 @@
-import firebase from "firebase";
+import { DatabaseReference, push } from "firebase/database";
 
-import * as monaco from "monaco-editor";
+import { Ace } from "ace-builds";
 
+import { FirebaseAdapter } from "./firebase-adapter";
+import { FirepadEvent as FirepadClassicEvent, IFirepad } from "./firepad";
+import { ACEAdapter } from "./ace-adapter";
 import { Cursor } from "./cursor";
 import {
   DatabaseAdapterEvent,
@@ -16,9 +19,6 @@ import {
   IEditorClient,
 } from "./editor-client";
 import { EventEmitter, EventListenerType, IEventEmitter } from "./emitter";
-import { FirebaseAdapter } from "./firebase-adapter";
-import { FirepadEvent as FirepadClassicEvent, IFirepad } from "./firepad";
-import { MonacoAdapter } from "./monaco-adapter";
 import * as Utils from "./utils";
 
 interface IFirepadClassicConstructorOptions {
@@ -50,8 +50,8 @@ export default class FirepadClassic implements IFirepad {
    * @param options - Firepad constructor options (optional).
    */
   constructor(
-    databaseRef: firebase.database.Reference,
-    editor: monaco.editor.IStandaloneCodeEditor,
+    databaseRef: DatabaseReference,
+    editor: Ace.Editor,
     options: IFirepadClassicConstructorOptions = {}
   ) {
     /** If not called with `new` operator */
@@ -63,7 +63,7 @@ export default class FirepadClassic implements IFirepad {
     this._zombie = false;
     this._options = options;
 
-    options.userId = this._getOptions("userId", () => databaseRef.push().key);
+    options.userId = this._getOptions("userId", () =>  push(databaseRef).key);
     options.userColor = this._getOptions("userColor", () =>
       Utils.colorFromUserId(options.userId!.toString())
     );
@@ -80,7 +80,7 @@ export default class FirepadClassic implements IFirepad {
       options.userColor!,
       options.userName!
     );
-    this._editorAdapter = new MonacoAdapter(editor, false);
+    this._editorAdapter = new ACEAdapter(editor);
     this._editorClient = new EditorClient(
       this._databaseAdapter,
       this._editorAdapter
@@ -223,9 +223,9 @@ export default class FirepadClassic implements IFirepad {
    * @param editor - Monaco Editor instance.
    * @param options - Firepad constructor options (optional).
    */
-  static fromMonaco(
-    databaseRef: firebase.database.Reference,
-    editor: monaco.editor.IStandaloneCodeEditor,
+  static fromAce(
+    databaseRef: DatabaseReference,
+    editor: Ace.Editor,
     options?: IFirepadClassicConstructorOptions
   ) {
     return new FirepadClassic(databaseRef, editor, options);

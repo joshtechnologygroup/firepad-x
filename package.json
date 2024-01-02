@@ -42,7 +42,7 @@
     "node": ">= 10.17.0"
   },
   "peerDependencies": {
-    "firebase": "8.10.1",
+    "firebase": "10.7.0",
     "monaco-editor": "0.18.1",
     "ace-builds": "^1.4.2"
   },
@@ -63,7 +63,7 @@
     "child-process-promise": "2.2.1",
     "core-js": "3.11.0",
     "css-loader": "5.2.4",
-    "firebase": "8.10.1",
+    "firebase": "10.7.0",
     "git-format-staged": "2.1.1",
     "husky": "^7.0.0",
     "jest": "27.0.3",

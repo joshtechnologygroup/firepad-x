@@ -3,8 +3,9 @@ export * from "./database-adapter";
 export * from "./editor-adapter";
 export * from "./firebase-adapter";
 export * from "./firepad";
-export * from "./firepad-monaco";
-export * from "./monaco-adapter";
+// TODO: Update firebase version for monaco editor
+// export * from "./firepad-monaco";
+// export * from "./monaco-adapter";
 export * from "./text-operation";
 export * from "./firepad-ace"
 
