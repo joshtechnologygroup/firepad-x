@@ -35,6 +35,7 @@ const init = function (): void {
 
   const firepad = Firepad.fromAceWithFirebase(firebaseRef, editor, {
       userName: `Anonymous ${Math.floor(Math.random() * 100)}`,
+      defaultText: 'this is the default text'
     }
   );
 

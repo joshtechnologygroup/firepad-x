@@ -169,10 +169,12 @@ export class ACEAdapter implements IEditorAdapter {
   }
 
   getText(): string {
-    return "";
+    return this.aceDoc.getValue();
   }
 
-  setText(text: string): void {}
+  setText(text: string): void {
+    this.aceDoc.setValue(text);
+  }
 
   setInitiated(init: boolean): void {}
 
@@ -186,9 +188,7 @@ export class ACEAdapter implements IEditorAdapter {
     listener: EventListenerType<IEditorAdapterEvent>
   ): void {}
 
-  dispose(): void {
-    this.ace.destroy();
-  }
+  dispose(): void {}
 
   private grabDocumentState(): void {
     this.lastDocLines = this.aceDoc.getAllLines();
