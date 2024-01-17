@@ -27,7 +27,7 @@
     "realtime",
     "collaborative"
   ],
-  "main": "dist/firepad.min.js",
+  "main": "es/index.js",
   "module": "es/index.js",
   "types": "types",
   "files": [

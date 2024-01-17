@@ -218,7 +218,7 @@ export default class FirepadClassic implements IFirepad {
   }
 
   /**
-   * Creates a classic Firepad from Monaco editor.
+   * Creates a classic Firepad from Ace editor.
    * @param databaseRef - Firebase database Reference object.
    * @param editor - Monaco Editor instance.
    * @param options - Firepad constructor options (optional).

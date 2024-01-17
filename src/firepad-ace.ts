@@ -78,16 +78,3 @@ export function fromAceWithFirebase(
 //   });
 // }
 
-/**
- * Creates a modern Firepad from Ace editor.
- * @param databaseRef - Firebase database Reference path.
- * @param editor - Ace Editor instance.
- * @param options - Firepad constructor options (optional).
- */
-export function fromAce(
-  databaseRef: DatabaseReference,
-  editor: Ace.Editor,
-  options: Partial<IFirepadConstructorOptions> = {}
-): IFirepad {
-  return fromAceWithFirebase(databaseRef, editor, options);
-}
