@@ -1,13 +1,17 @@
 {
   "name": "@joshtechnologygroup/firepad",
   "description": "Collaborative text editing powered by Firebase",
-  "version": "0.0.1",
-  "author": "Firebase (https://firebase.google.com/)",
-  "contributors": [
-    "Michael Lehenbauer <michael@firebase.com>"
-  ],
+  "version": "0.1.1",
+  "author": {
+    "name": "Josh Technology Group",
+    "url": "https://github.com/joshtechnologygroup"
+  },
   "maintainers": [
-    "Firebase (https://firebase.google.com/)"
+    "Michael Lehenbauer <michael@firebase.com>",
+    "Brijesh Bittu <brijesh@hackerrank.com>",
+    "Nishchay Kaushik <nishchay@hackerrank.com>",
+    "Mohanasundar <mohana.sundar@hackerrank.com>",
+    "Mayankesh Mishra <mayankesh.mishra@joshtechnologygroup.com>"
   ],
   "homepage": "http://www.firepad.io/",
   "repository": {
