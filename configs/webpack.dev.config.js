@@ -13,7 +13,7 @@ module.exports = (env, argv) => {
     mode,
     context: path.resolve(__dirname, "../"),
     target: "web",
-    entry: "./examples/firepad-monaco-example.ts",
+    entry: "./examples/firepad-ace-example.ts",
     output: {
       clean: true,
       filename: "firepad.js",

@@ -40,7 +40,7 @@ So it was about time, that same would happen to Firepad, and we just pulled the 
 Firepad takes two dependencies, one **Database Adapter** and one **Editor Adapter**, with a custom configuration object like the following:
 
 ```ts
-import Firepad, { IDatabaseAdapter, IEditorAdapter, IFirepadConstructorOptions } from "@hackerrank/firepad";
+import Firepad, { IDatabaseAdapter, IEditorAdapter, IFirepadConstructorOptions } from "@joshtechnologygroup/firepad";
 
 const databaseAdapter: IDatabaseAdapter = ...; // Database Adapter instance
 
@@ -60,18 +60,18 @@ const options: IFirepadConstructorOptions = {
 const firepad = new Firepad(databaseAdapter, editorAdapter, options);
 ```
 
-### Monaco as editor
+### Ace as editor
 
-If you use Monaco as an editor, we have an shorthand function `fromMonaco` to provide adapters and the binding out of the box with optional configuration object:
+If you use Monaco as an editor, we have an shorthand function `fromAceWithFirebase` to provide adapters and the binding out of the box with optional configuration object:
 
 ```ts
-import { fromMonaco } from "@hackerrank/firepad";
+import { fromMonaco } from "@joshtechnologygroup/firepad";
 
-const databaseRef: string | firebase.database.Reference = ...; // Path to Firebase Database or a Reference Object
+const databaseRef: string | DatabaseReference = ...; // Path to Firebase Database or a Reference Object
 
 const editor: monaco.editor.IEditor = ...; // Monaco Editor Instance
 
-const firepad = fromMonaco(databaseRef, editor);
+const firepad = fromAceWithFirebase(databaseRef, editor);
 ```
 
 ### Writing Custom Adapters
@@ -79,7 +79,7 @@ const firepad = fromMonaco(databaseRef, editor);
 To use Firepad with any other Editor, one simply need to write an implementation of Editor Adapter interface for that editor. This can be done like this:
 
 ```ts
-import { IEditorAdapter } from "@hackerrank/firepad";
+import { IEditorAdapter } from "@joshtechnologygroup/firepad";
 
 class MyEditorAdapter implements IEditorAdapter {
   ...

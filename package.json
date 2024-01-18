@@ -1,33 +1,25 @@
 {
-  "name": "@hackerrank/firepad",
+  "name": "@joshtechnologygroup/firepad",
   "description": "Collaborative text editing powered by Firebase",
-  "version": "0.8.4-beta",
+  "version": "0.1.1",
   "author": {
-    "email": "bprogyan@gmail.com",
-    "name": "Progyan Bhattacharya",
-    "url": "https://github.com/Progyan1997"
+    "name": "Josh Technology Group",
+    "url": "https://github.com/joshtechnologygroup"
   },
-  "contributors": [
+  "maintainers": [
     "Michael Lehenbauer <michael@firebase.com>",
     "Brijesh Bittu <brijesh@hackerrank.com>",
     "Nishchay Kaushik <nishchay@hackerrank.com>",
-    "Mohanasundar <mohana.sundar@hackerrank.com>"
-  ],
-  "maintainers": [
-    {
-      "email": "developers@hackerrank.com",
-      "name": "HackerRank",
-      "url": "https://hackerrank.com"
-    },
-    "Firebase (https://firebase.google.com/)"
+    "Mohanasundar <mohana.sundar@hackerrank.com>",
+    "Mayankesh Mishra <mayankesh.mishra@joshtechnologygroup.com>"
   ],
   "homepage": "http://www.firepad.io/",
   "repository": {
     "type": "git",
-    "url": "https://github.com/interviewstreet/firepad-x.git"
+    "url": "git@github.com:joshtechnologygroup/firepad-x.git"
   },
   "bugs": {
-    "url": "https://github.com/interviewstreet/firepad-x/issues"
+    "url": "https://github.com/joshtechnologygroup/firepad-x/issues"
   },
   "license": "MIT",
   "keywords": [
@@ -39,7 +31,7 @@
     "realtime",
     "collaborative"
   ],
-  "main": "dist/firepad.min.js",
+  "main": "es/index.js",
   "module": "es/index.js",
   "types": "types",
   "files": [
@@ -54,8 +46,9 @@
     "node": ">= 10.17.0"
   },
   "peerDependencies": {
-    "firebase": "8.10.1",
-    "monaco-editor": "0.18.1"
+    "firebase": "10.7.0",
+    "monaco-editor": "0.18.1",
+    "ace-builds": "^1.4.2"
   },
   "dependencies": {
     "uuid": "8.3.2"
@@ -68,12 +61,13 @@
     "@babel/preset-typescript": "7.13.0",
     "@types/jest": "26.0.23",
     "@types/uuid": "8.3.0",
+    "ace-builds": "^1.4.2",
     "babel-loader": "8.2.2",
     "check-yarn-lock": "0.2.1",
     "child-process-promise": "2.2.1",
     "core-js": "3.11.0",
     "css-loader": "5.2.4",
-    "firebase": "8.10.1",
+    "firebase": "10.7.0",
     "git-format-staged": "2.1.1",
     "husky": "^7.0.0",
     "jest": "27.0.3",
@@ -87,10 +81,11 @@
     "typescript": "4.2.4",
     "webpack": "5.34.0",
     "webpack-cli": "4.6.0",
-    "webpack-dev-server": "3.11.2"
+    "webpack-dev-server": "3.11.2",
+    "npm-run-all": "^4.1.5"
   },
   "scripts": {
-    "prepare": "husky install",
+    "prepare": "run-s build:esm",
     "start": "webpack serve --hot --progress --mode development --port 9000 --host 0.0.0.0 --config configs/webpack.dev.config.js",
     "start:prod": "webpack serve --hot --progress --mode production --port 9000 --host 0.0.0.0 --config configs/webpack.dev.config.js",
     "clean": "rimraf dist es lib types",

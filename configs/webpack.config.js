@@ -25,13 +25,13 @@ module.exports = {
       amd: "monaco-editor",
     },
     "firebase/app": {
-      root: "firebase.app",
+      root: "firebase/app",
       commonjs: "firebase/app",
       commonjs2: "firebase/app",
       amd: "firebase/app",
     },
     "firebase/database": {
-      root: "firebase.database",
+      root: "firebase/database",
       commonjs: "firebase/database",
       commonjs2: "firebase/database",
       amd: "firebase/database",

@@ -4,7 +4,7 @@
     "declaration": true,
     "declarationDir": "../types",
     "declarationMap": false,
-    "noImplicitAny": true,
+    "noImplicitAny": false,
     "noEmitOnError": false,
     "noImplicitThis": true,
     "noUnusedLocals": true,

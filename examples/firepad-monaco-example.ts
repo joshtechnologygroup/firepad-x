@@ -44,7 +44,7 @@ const init = function (): void {
   const firestoreRef = getExampleFirestoreRef();
 
   // Create Monaco and firepad.
-  const editor = monaco.editor.create(document.getElementById("firepad"), {
+  const editor = monaco.editor.create(document.getElementById("firepad")!, {
     language: "typescript",
     fontSize: 18,
     theme: "vs-dark",
