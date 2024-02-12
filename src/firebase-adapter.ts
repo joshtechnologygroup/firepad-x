@@ -358,6 +358,7 @@ export class FirebaseAdapter implements IDatabaseAdapter {
         );
       } else {
         this._document = this._document!.compose(revision.operation);
+        console.log('HANDLE INITIAL REVISION: ', this._document);
       }
 
       delete pending[revisionId];
@@ -399,6 +400,7 @@ export class FirebaseAdapter implements IDatabaseAdapter {
         );
       } else {
         this._document = this._document!.compose(revision.operation);
+        console.log('HANDLE PENDING: ', this._document);
 
         if (this._sent && revisionId === this._sent.id) {
           // We have an outstanding change at this revision id.
@@ -547,7 +549,7 @@ export class FirebaseAdapter implements IDatabaseAdapter {
       return null;
     }
     
-    if (!this._document?.canMergeWith(op)) {
+    if (!this._document!.canMergeWith(op)) {
       return null;
     }
     
