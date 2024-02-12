@@ -178,6 +178,7 @@ export class FirebaseAdapter implements IDatabaseAdapter {
   }
 
   dispose(): void {
+    console.log('DISPOSE: ', this._databaseRef, this._document);
     if (!this._ready) {
       this.on(FirebaseAdapterEvent.Ready, () => {
         this.dispose();
