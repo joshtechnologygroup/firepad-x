@@ -532,6 +532,7 @@ export class FirebaseAdapter implements IDatabaseAdapter {
    * @param data - Partial representation of the Text Operation in Firebase.
    */
   protected _parseRevision(data: RevisionType): IRevision | null {
+    console.log('PARSE REVISION: ', data, this._document, this._databaseRef);
     // We could do some of this validation via security rules.  But it's nice to be robust, just in case.
     if (typeof data !== "object" || typeof data.o !== "object") {
       return null;
