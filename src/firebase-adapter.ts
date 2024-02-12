@@ -128,6 +128,7 @@ export class FirebaseAdapter implements IDatabaseAdapter {
     // We store the current document state as a TextOperation so we can write checkpoints to Firebase occasionally.
     // TODO: Consider more efficient ways to do this (composing text operations is ~linear in the length of the document).
     this._document = new TextOperation();
+    console.log('CONSTRUCTOR: ',this._databaseRef, this._document);
 
     // The next expected revision.
     this._revision = 0;
