@@ -547,12 +547,8 @@ export class FirebaseAdapter implements IDatabaseAdapter {
       return null;
     }
     
-    try {
-      if (!this._document!.canMergeWith(op)) {
-        return null;
-      }
-    } catch (e) {
-      console.log('PARSE REVISION: ', data, this._document, this._databaseRef, e);
+    if (!this._document?.canMergeWith(op)) {
+      return null;
     }
     
 
