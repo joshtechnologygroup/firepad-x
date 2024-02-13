@@ -18,8 +18,7 @@ import * as Utils from "./utils";
 export function fromAceWithFirebase(
   databaseRef: string | DatabaseReference,
   editor: Ace.Editor,
-  options: Partial<IFirepadConstructorOptions> = {},
-  id: string,
+  options: Partial<IFirepadConstructorOptions> = {}
 ): IFirepad {
   // Initialize constructor options with their default values
   const userId: UserIDType = options.userId || uuid();
@@ -32,8 +31,7 @@ export function fromAceWithFirebase(
     databaseRef,
     userId,
     userColor,
-    userName,
-    id
+    userName
   );
 
   const editorAdapter = new ACEAdapter(editor);
