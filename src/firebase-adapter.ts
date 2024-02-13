@@ -362,7 +362,6 @@ export class FirebaseAdapter implements IDatabaseAdapter {
         );
       } else {
         this._document = this._document!.compose(revision.operation);
-        console.log('HANDLE INITIAL REVISION: ', this._document);
       }
 
       delete pending[revisionId];
@@ -733,6 +732,7 @@ export class FirebaseAdapter implements IDatabaseAdapter {
   protected _removeFirebaseCallbacks() {
     for (const callbackRef of this._firebaseCallbacks) {
       const { ref, eventType, callback, context } = callbackRef;
+      console.log('REMOVED CALLBACK: ', eventType);
       off(ref, eventType, callback.bind(context));
     }
 
