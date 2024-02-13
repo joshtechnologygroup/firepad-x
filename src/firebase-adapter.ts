@@ -92,6 +92,7 @@ export class FirebaseAdapter implements IDatabaseAdapter {
   protected _userRef: DatabaseReference | null;
   protected _databaseRef: DatabaseReference | null;
   protected _firebaseCallbacks: FirebaseRefCallbackHookType[];
+  protected id?: string;
 
   /** Frequency of Text Operation to mark as checkpoint */
   protected static readonly CHECKPOINT_FREQUENCY: number = 100;
@@ -107,7 +108,8 @@ export class FirebaseAdapter implements IDatabaseAdapter {
     databaseRef: string | DatabaseReference,
     userId: number | string,
     userColor: string,
-    userName: string
+    userName: string,
+    id?: string,
   ) {
     if (typeof databaseRef !== "object") {
       databaseRef = ref(getDatabase());
@@ -119,6 +121,7 @@ export class FirebaseAdapter implements IDatabaseAdapter {
     this._firebaseCallbacks = [];
     this._zombie = false;
     this._initialRevisions = false;
+    this.id = id;
 
     // Add User Information
     this.setUserId(userId);
@@ -536,6 +539,7 @@ export class FirebaseAdapter implements IDatabaseAdapter {
    * @param data - Partial representation of the Text Operation in Firebase.
    */
   protected _parseRevision(data: RevisionType): IRevision | null {
+    console.log('PARSE REVISION: ', this.id);
     // We could do some of this validation via security rules.  But it's nice to be robust, just in case.
     if (typeof data !== "object" || typeof data.o !== "object") {
       return null;
