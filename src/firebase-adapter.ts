@@ -731,7 +731,7 @@ export class FirebaseAdapter implements IDatabaseAdapter {
 
   protected _removeFirebaseCallbacks() {
     for (const callbackRef of this._firebaseCallbacks) {
-      const { ref, eventType, callback, context } = callbackRef;
+      const { ref, eventType} = callbackRef;
       console.log('REMOVED CALLBACK: ', eventType);
       off(ref);
     }
