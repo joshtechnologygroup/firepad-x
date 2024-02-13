@@ -188,7 +188,9 @@ export class ACEAdapter implements IEditorAdapter {
     listener: EventListenerType<IEditorAdapterEvent>
   ): void {}
 
-  dispose(): void {}
+  dispose(): void {
+    this.detach();
+  }
 
   private grabDocumentState(): void {
     this.lastDocLines = this.aceDoc.getAllLines();

@@ -716,9 +716,10 @@ export class FirebaseAdapter implements IDatabaseAdapter {
   }
 
   protected _removeFirebaseCallbacks() {
+    // TODO: Update logic while storing firebase callbacks to save only ref
     for (const callbackRef of this._firebaseCallbacks) {
-      const { ref, eventType, callback, context } = callbackRef;
-      off(ref, eventType, callback.bind(context));
+      const { ref } = callbackRef;
+      off(ref);
     }
 
     this._firebaseCallbacks = [];
