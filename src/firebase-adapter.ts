@@ -557,7 +557,8 @@ export class FirebaseAdapter implements IDatabaseAdapter {
         return null;
       }
     } catch(e) {
-      console.log('PARSE REVISION: ', this.id);
+      console.log('PARSE REVISION: ', this.id, e);
+      return null;
     }
     
     
