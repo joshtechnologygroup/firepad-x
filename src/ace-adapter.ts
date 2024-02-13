@@ -189,9 +189,7 @@ export class ACEAdapter implements IEditorAdapter {
   ): void {}
 
   dispose(): void {
-    console.log('DISPOSE CALLED');
     this.detach();
-    // this.ace.destroy();
   }
 
   private grabDocumentState(): void {

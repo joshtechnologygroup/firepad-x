@@ -92,7 +92,6 @@ export class FirebaseAdapter implements IDatabaseAdapter {
   protected _userRef: DatabaseReference | null;
   protected _databaseRef: DatabaseReference | null;
   protected _firebaseCallbacks: FirebaseRefCallbackHookType[];
-  protected id?: string;
 
   /** Frequency of Text Operation to mark as checkpoint */
   protected static readonly CHECKPOINT_FREQUENCY: number = 100;
@@ -109,7 +108,6 @@ export class FirebaseAdapter implements IDatabaseAdapter {
     userId: number | string,
     userColor: string,
     userName: string,
-    id?: string,
   ) {
     if (typeof databaseRef !== "object") {
       databaseRef = ref(getDatabase());
@@ -121,7 +119,6 @@ export class FirebaseAdapter implements IDatabaseAdapter {
     this._firebaseCallbacks = [];
     this._zombie = false;
     this._initialRevisions = false;
-    this.id = id;
 
     // Add User Information
     this.setUserId(userId);
@@ -131,7 +128,6 @@ export class FirebaseAdapter implements IDatabaseAdapter {
     // We store the current document state as a TextOperation so we can write checkpoints to Firebase occasionally.
     // TODO: Consider more efficient ways to do this (composing text operations is ~linear in the length of the document).
     this._document = new TextOperation();
-    console.log('CONSTRUCTOR: ',this._databaseRef, this._document);
 
     // The next expected revision.
     this._revision = 0;
@@ -182,7 +178,6 @@ export class FirebaseAdapter implements IDatabaseAdapter {
   }
 
   dispose(): void {
-    console.log('DISPOSE: ', this._databaseRef, this._document);
     if (!this._ready) {
       this.on(FirebaseAdapterEvent.Ready, () => {
         this.dispose();
@@ -297,7 +292,6 @@ export class FirebaseAdapter implements IDatabaseAdapter {
     ] = revisionSnapshot.val() as RevisionType;
 
     if (this._ready) {
-      console.log('HANDLE PENDING: ', this.id);
       this._handlePendingReceivedRevisions();
     }
   }
@@ -403,7 +397,6 @@ export class FirebaseAdapter implements IDatabaseAdapter {
         );
       } else {
         this._document = this._document!.compose(revision.operation);
-        console.log('HANDLE PENDING: ', this._document);
 
         if (this._sent && revisionId === this._sent.id) {
           // We have an outstanding change at this revision id.
@@ -552,17 +545,10 @@ export class FirebaseAdapter implements IDatabaseAdapter {
       return null;
     }
     
-    try {
-      if (!this._document!.canMergeWith(op)) {
-        return null;
-      }
-    } catch(e) {
-      console.log('PARSE REVISION: ', this.id, e);
+    if (!this._document!.canMergeWith(op)) {
       return null;
     }
     
-    
-
     return {
       author: data.a,
       operation: op,
@@ -730,9 +716,9 @@ export class FirebaseAdapter implements IDatabaseAdapter {
   }
 
   protected _removeFirebaseCallbacks() {
+    // TODO: Update logic while storing firebase callbacks to save only ref
     for (const callbackRef of this._firebaseCallbacks) {
-      const { ref, eventType} = callbackRef;
-      console.log('REMOVED CALLBACK: ', eventType);
+      const { ref } = callbackRef;
       off(ref);
     }
 
