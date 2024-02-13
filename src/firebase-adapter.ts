@@ -297,6 +297,7 @@ export class FirebaseAdapter implements IDatabaseAdapter {
     ] = revisionSnapshot.val() as RevisionType;
 
     if (this._ready) {
+      console.log('HANDLE PENDING: ', this.id);
       this._handlePendingReceivedRevisions();
     }
   }
